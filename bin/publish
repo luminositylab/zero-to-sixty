@@ -22,5 +22,6 @@ upload_url=$(curl \
         \"body\": \"Autorelease for $GITHUB_SHA\",
         \"draft\": false,
         \"prerelease\": false
-    }"
-| jq -r '.upload_url')
+    }" | \
+    jq -r '.upload_url'
+)
