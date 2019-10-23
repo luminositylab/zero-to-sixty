@@ -13,7 +13,7 @@ response=$(curl \
     -sSL \
     -XPOST \
     -H "${AUTH_HEADER}" \
-    --upload-file "${file}" \
+    --upload-file "${FILENAME}" \
     --header "Content-Type:application/octet-stream" \
     --write-out "%{http_code}" \
     --output $tmp \
