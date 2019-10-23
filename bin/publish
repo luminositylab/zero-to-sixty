@@ -6,6 +6,8 @@ echo $GITHUB_SHA
 echo $GITHUB_REF
 echo $API_KEY
 
+SHORT=$(git rev-parse --short $GITHUB_SHA)
+
 response=$(curl \
     -sSL \
     -XPOST \
@@ -14,7 +16,7 @@ response=$(curl \
     --header "Content-Type:application/json" \
     --data "{
         \"tag_name\": \"$GITHUB_SHA\",
-        \"target_commitish\": \"$GITHUB_SHA\",
+        \"target_commitish\": \"$SHORT\",
         \"name\": \"$GITHUB_SHA\",
         \"body\": \"Auto release for $GITHUB_SHA\",
         \"draft\": false,
