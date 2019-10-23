@@ -21,12 +21,14 @@ jobs:
       env:
         CI: true
     - name: pack
-      run: export PACK_NAME=$(npm pack)
+      run: |
+        export PACK_NAME=$(npm pack)
+        echo ::set-env name=PACK_NAME::$(npm pack)
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
         name: app
-        path: $PACK_NAME
+        path: ${{ PACK_NAME }}
     - name: Publish artifact
       run: bin/publish
       env:
