@@ -31,7 +31,7 @@ UPLOAD_URL="https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${uploa
 response=$(curl \
     -sSL \
     -XPOST \
-    --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+    --header "authorization: Bearer $API_KEY" \
     --upload-file "${FILENAME}" \
     --header "Content-Type:application/octet-stream" \
     "${UPLOAD_URL}")
