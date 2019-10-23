@@ -27,18 +27,18 @@ webhookHandler.on('check_suite', function(repo, data) {
 
     console.log('check_suite', action, status, conclusion);
     if (action === 'completed' && status === 'completed' && conclusion === 'success') {
-        var releaseUrl = repo['url'] + '/releases/latest'
+        var releaseUrl = data['repository']['url'] + '/releases/latest'
         console.log('Fetching latests release from ' + releaseUrl);
 
-        request({
-            url: url,
-            json: true
-        }, function(error, response, body) {
-            if (!error && response.statusCode === 200) {
-                console.log(body) // Print the json response
-                console.log('Updated to sha: ' + data['check_suite']['head_sha']);
-            }
-        });
+        // request({
+        //     url: url,
+        //     json: true
+        // }, function(error, response, body) {
+        //     if (!error && response.statusCode === 200) {
+        //         console.log(body) // Print the json response
+        //         console.log('Updated to sha: ' + data['check_suite']['head_sha']);
+        //     }
+        // });
         // process.kill(process.pid, 'SIGTERM')
     }
 });
