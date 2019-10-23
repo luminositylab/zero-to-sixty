@@ -31,11 +31,14 @@ webhookHandler.on('check_suite', function(repo, data) {
         console.log('Fetching latest release from ' + releaseUrl);
 
         request({
-            url: releaseUrl,
+            url: 'https://api.github.com/repos/luminositylab/zero-to-sixty/releases/latest',
+            headers: {
+                'User-Agent': 'request'
+            },
             json: true
         }, function(error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log(body) // Print the json response
+                console.log(body)
                 console.log('Updated to sha: ' + data['check_suite']['head_sha']);
             }
         });
