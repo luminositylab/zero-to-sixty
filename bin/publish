@@ -6,7 +6,8 @@ echo $GITHUB_SHA
 echo $GITHUB_REF
 echo $API_KEY
 
-SHORT=$(git rev-parse --short $GITHUB_SHA)
+SHA_VERSION=$(git rev-parse --short $GITHUB_SHA)
+SYM_VERSION=$(node -p "require('./package.json').version")
 
 # response=$(curl \
 #     -sSL \
@@ -15,7 +16,7 @@ SHORT=$(git rev-parse --short $GITHUB_SHA)
 #     --header "authorization: Bearer $API_KEY" \
 #     --header "Content-Type:application/json" \
 #     --data "{
-#         \"tag\": \"v$SHORT-RC\",
+#         \"tag\": \"v$SYM_VERSION\",
 #         \"message\": \"Auto release for $GITHUB_SHA\",
 #         \"object\": \"$GITHUB_SHA\",
 #         \"type\": \"commit\"
@@ -29,8 +30,8 @@ response=$(curl \
     --header "authorization: Bearer $API_KEY" \
     --header "Content-Type:application/json" \
     --data "{
-        \"tag_name\": \"v$SHORT-RC\",
-        \"target_commitish\": \"$SHORT\",
+        \"tag_name\": \"v$SYM_VERSION\",
+        \"target_commitish\": \"$SHA_VERSION\",
         \"name\": \"$GITHUB_SHA\",
         \"body\": \"Auto release for $GITHUB_SHA\",
         \"draft\": false,
