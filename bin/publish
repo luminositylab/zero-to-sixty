@@ -9,7 +9,7 @@ echo $API_KEY
 SHA_VERSION=$(git rev-parse --short $GITHUB_SHA)
 SYM_VERSION=$(node -p "require('./package.json').version")
 
-upload_url=$(curl \
+upload_id=$(curl \
     -sSL \
     -XPOST \
     --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
@@ -23,5 +23,15 @@ upload_url=$(curl \
         \"draft\": false,
         \"prerelease\": false
     }" | \
-    jq -r '.upload_url'
+    jq -r '.id'
 )
+
+FILENAME="zero-to-sixty.tgz"
+UPLOAD_URL="https://uploads.github.com/repos/$GITHUB_REPOSITORY/releases/${upload_id}/assets?name=${FILENAME}"
+response=$(curl \
+    -sSL \
+    -XPOST \
+    --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+    --upload-file "${FILENAME}" \
+    --header "Content-Type:application/octet-stream" \
+    "${UPLOAD_URL}")
