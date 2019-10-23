@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var GithubWebHook = require('express-github-webhook');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var request = require('request');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -26,7 +27,19 @@ webhookHandler.on('check_suite', function(repo, data) {
 
     console.log('check_suite', action, status, conclusion);
     if (action === 'completed' && status === 'completed' && conclusion === 'success') {
-        console.log('Updated to sha: ' + data['check_suite']['head_sha']);
+        var releaseUrl = repo['url'] + '/releases/latest'
+        console.log('Fetching latests release from ' + releaseUrl);
+
+        request({
+            url: url,
+            json: true
+        }, function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                console.log(body) // Print the json response
+                console.log('Updated to sha: ' + data['check_suite']['head_sha']);
+            }
+        });
+        // process.kill(process.pid, 'SIGTERM')
     }
 });
 
