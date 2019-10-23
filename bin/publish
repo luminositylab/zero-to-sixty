@@ -9,19 +9,19 @@ echo $API_KEY
 SHA_VERSION=$(git rev-parse --short $GITHUB_SHA)
 SYM_VERSION=$(node -p "require('./package.json').version")
 
-# response=$(curl \
-#     -sSL \
-#     -XPOST \
-#     --url https://api.github.com/repos/$GITHUB_REPOSITORY/git/tags \
-#     --header "authorization: Bearer $API_KEY" \
-#     --header "Content-Type:application/json" \
-#     --data "{
-#         \"tag\": \"v$SYM_VERSION\",
-#         \"message\": \"Auto release for $GITHUB_SHA\",
-#         \"object\": \"$GITHUB_SHA\",
-#         \"type\": \"commit\"
-#     }"
-# )
+response=$(curl \
+    -sSL \
+    -XPOST \
+    --url https://api.github.com/repos/$GITHUB_REPOSITORY/git/tags \
+    --header "authorization: Bearer $API_KEY" \
+    --header "Content-Type:application/json" \
+    --data "{
+        \"tag\": \"v$SYM_VERSION\",
+        \"message\": \"Auto release for $GITHUB_SHA\",
+        \"object\": \"$GITHUB_SHA\",
+        \"type\": \"commit\"
+    }"
+)
 
 response=$(curl \
     -sSL \
