@@ -14,6 +14,12 @@ process.on('SIGTERM', () => {
     })
 })
 
+process.on('QUIT', () => {
+    server.close(() => {
+        console.log('Process terminated')
+    })
+});
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
