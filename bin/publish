@@ -23,4 +23,4 @@ upload_url=$(curl \
         \"draft\": false,
         \"prerelease\": false
     }"
-) | jq -r '.upload_url'
+| jq -r '.upload_url')
