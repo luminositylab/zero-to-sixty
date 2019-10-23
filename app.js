@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(webhookHandler);
 
 //Setup Github Webhook Handler
-webhookHandler.on('check_suite', function(event, repo, data) {
+webhookHandler.on('*', function(event, repo, data) {
     console.log(event, data.action, data.check_run.status, data.check_run.conclusion);
 });
 
