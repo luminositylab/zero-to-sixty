@@ -2,6 +2,23 @@
 
 echo $GITHUB_REPOSITORY
 echo $GITHUB_EVENT_NAME
-echo $GITHUB_EVENT_PATH
+cat $GITHUB_EVENT_PATH
 echo $GITHUB_SHA
 echo $GITHUB_REF
+echo $API_KEY
+
+response=$(curl \
+    -sSL \
+    -XPOST \
+    --url https://api.github.com/repos/$GITHUB_REPOSITORY/releases
+    --header "authorization: Bearer $API_KEY" \
+    --header "Content-Type:application/json" \
+    --data "{
+        'tag_name': '$GITHUB_SHA',
+        'target_commitish': '$GITHUB_SHA',
+        'name': '$GITHUB_SHA',
+        'body': 'Auto release for $GITHUB_SHA',
+        'draft': false,
+        'prerelease': false
+    }"
+)
