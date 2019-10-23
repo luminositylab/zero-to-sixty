@@ -1,0 +1,22 @@
+{
+  "name": "zero-to-sixty",
+  "version": "1.0.0",
+  "description": "Simple Self Deploying App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slaughter550/zero-to-sixty.git"
+  },
+  "author": "Alex Slaughter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slaughter550/zero-to-sixty/issues"
+  },
+  "homepage": "https://github.com/slaughter550/zero-to-sixty#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
