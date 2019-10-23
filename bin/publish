@@ -8,19 +8,19 @@ echo $API_KEY
 
 SHORT=$(git rev-parse --short $GITHUB_SHA)
 
-response=$(curl \
-    -sSL \
-    -XPOST \
-    --url https://api.github.com/repos/$GITHUB_REPOSITORY/git/tags \
-    --header "authorization: Bearer $API_KEY" \
-    --header "Content-Type:application/json" \
-    --data "{
-        \"tag\": \"$SHORT\",
-        \"message\": \"Auto release for $GITHUB_SHA\",
-        \"object\": \"$GITHUB_SHA\",
-        \"type\": \"commit\"
-    }"
-)
+# response=$(curl \
+#     -sSL \
+#     -XPOST \
+#     --url https://api.github.com/repos/$GITHUB_REPOSITORY/git/tags \
+#     --header "authorization: Bearer $API_KEY" \
+#     --header "Content-Type:application/json" \
+#     --data "{
+#         \"tag\": \"v$SHORT-RC\",
+#         \"message\": \"Auto release for $GITHUB_SHA\",
+#         \"object\": \"$GITHUB_SHA\",
+#         \"type\": \"commit\"
+#     }"
+# )
 
 response=$(curl \
     -sSL \
@@ -29,11 +29,11 @@ response=$(curl \
     --header "authorization: Bearer $API_KEY" \
     --header "Content-Type:application/json" \
     --data "{
-        \"tag_name\": \"$SHORT\",
+        \"tag_name\": \"v$SHORT-RC\",
         \"target_commitish\": \"$SHORT\",
         \"name\": \"$GITHUB_SHA\",
         \"body\": \"Auto release for $GITHUB_SHA\",
         \"draft\": false,
-        \"prerelease\": false
+        \"prerelease\": true
     }"
 )
