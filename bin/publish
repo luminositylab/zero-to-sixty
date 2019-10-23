@@ -3,7 +3,6 @@
 # Upload binary artifacts when a new release is made.
 #
 
-AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 RELEASE_ID="1.0.0"
 FILENAME="zero-to-sixty-1.0.0.tgz"
 UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${FILENAME}"
@@ -12,7 +11,7 @@ tmp=$(mktemp)
 response=$(curl \
     -sSL \
     -XPOST \
-    -H "${AUTH_HEADER}" \
+    --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
     --upload-file "${FILENAME}" \
     --header "Content-Type:application/octet-stream" \
     --write-out "%{http_code}" \
