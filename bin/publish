@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Upload binary artifacts when a new release is made.
+#
+
+AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+RELEASE_ID="1.0.0"
+FILENAME="zero-to-sixty-1.0.0.tgz"
+UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${FILENAME}"
+echo "Upload URL is ${UPLOAD_URL}"
+tmp=$(mktemp)
+response=$(curl \
+    -sSL \
+    -XPOST \
+    -H "${AUTH_HEADER}" \
+    --upload-file "${file}" \
+    --header "Content-Type:application/octet-stream" \
+    --write-out "%{http_code}" \
+    --output $tmp \
+    "${UPLOAD_URL}")
+
+# If the curl-command returned a non-zero response we must abort
+if [ "$?" -ne 0 ]; then
+   echo "**********************************"
+   echo " curl command did not return zero."
+   echo " Aborting"
+   echo "**********************************"
+   cat $tmp
+   rm $tmp
+   exit 1
+fi
+
+# If upload is not successful, we must abort
+if [ $response -ge 400 ]; then
+   echo "***************************"
+   echo " upload was not successful."
+   echo " Aborting"
+   echo " HTTP status is $response"
+   echo "**********************************"
+   cat $tmp
+   rm $tmp
+   exit 1
+fi
+
+# Show pretty output, since we already have jq
+cat $tmp | jq .
+rm $tmp
