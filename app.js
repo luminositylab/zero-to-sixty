@@ -19,8 +19,8 @@ app.use(bodyParser.json());
 app.use(webhookHandler);
 
 //Setup Github Webhook Handler
-webhookHandler.on('*', function(event, repo, data) {
-    console.log(event, data['action']);
+webhookHandler.on('check_suite', function(event, repo, data) {
+    console.log(event, data['action'], data['check_run']['status'], data['check_run']['conclusion']);
 });
 
 app.set('views', path.join(__dirname, 'views'));
