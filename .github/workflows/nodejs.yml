@@ -30,7 +30,7 @@ jobs:
     - name: Upload artifacts
       run: |
         FILENAME="zero-to-sixty-1.0.0.tgz"
-        UPLOAD_URL="https://uploads.github.com/repos/${{ github.repository }}/releases/1.0.0/assets?name=${FILENAME}"
+        UPLOAD_URL="https://uploads.github.com/repos/${{ github.repository }}/releases/1/assets?name=${FILENAME}"
         tmp=$(mktemp)
         response=$(curl \
             -sSL \
