@@ -13,11 +13,11 @@ response=$(curl \
     --header "authorization: Bearer $API_KEY" \
     --header "Content-Type:application/json" \
     --data "{
-        'tag_name': '$GITHUB_SHA',
-        'target_commitish': '$GITHUB_SHA',
-        'name': '$GITHUB_SHA',
-        'body': 'Auto release for $GITHUB_SHA',
-        'draft': false,
-        'prerelease': false
+        \"tag_name\": \"$GITHUB_SHA\",
+        \"target_commitish\": \"$GITHUB_SHA\",
+        \"name\": \"$GITHUB_SHA\",
+        \"body\": \"Auto release for $GITHUB_SHA\",
+        \"draft\": false,
+        \"prerelease\": false
     }"
 )
