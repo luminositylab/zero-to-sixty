@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/slaughter550/zero-to-sixty#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "clean-css": ">=4.1.11",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-github-webhook": "^1.0.6",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11"
