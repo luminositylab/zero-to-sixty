@@ -28,41 +28,6 @@ jobs:
         name: app
         path: zero-to-sixty-1.0.0.tgz
     - name: Upload artifacts
-      run: |
-        FILENAME="zero-to-sixty-1.0.0.tgz"
-        UPLOAD_URL="https://uploads.github.com/repos/${{ github.repository }}/releases/20905509/assets?name=${FILENAME}"
-        tmp=$(mktemp)
-        response=$(curl \
-            -sSL \
-            -XPOST \
-            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-            --upload-file "${FILENAME}" \
-            --header "Content-Type:application/octet-stream" \
-            --write-out "%{http_code}" \
-            --output $tmp \
-            "${UPLOAD_URL}")
-
-        if [ "$?" -ne 0 ]; then
-           echo "**********************************"
-           echo " curl command did not return zero."
-           echo " Aborting"
-           echo "**********************************"
-           cat $tmp
-           rm $tmp
-           exit 1
-        fi
-
-        if [ $response -ge 400 ]; then
-           echo "***************************"
-           echo " upload was not successful."
-           echo " Aborting"
-           echo " HTTP status is $response"
-           echo "**********************************"
-           cat $tmp
-           rm $tmp
-           exit 1
-        fi
-
-        # Show pretty output, since we already have jq
-        cat $tmp | jq .
-        rm $tmp
+      run: bin/publish
+      env:
+        API_KEY: ${{ secrets.GITHUB_TOKEN }}
