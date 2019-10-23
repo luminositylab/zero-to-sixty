@@ -29,3 +29,5 @@ jobs:
         path: zero-to-sixty-1.0.0.tgz
     - name: Upload artifacts
       run: bin/publish
+      env:
+        API_KEY: ${{ secrets.GITHUB_TOKEN }}
