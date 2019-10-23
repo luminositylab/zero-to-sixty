@@ -28,10 +28,10 @@ webhookHandler.on('check_suite', function(repo, data) {
     console.log('check_suite', action, status, conclusion);
     if (action === 'completed' && status === 'completed' && conclusion === 'success') {
         var releaseUrl = data['repository']['url'] + '/releases/latest'
-        console.log('Fetching latests release from ' + releaseUrl);
+        console.log('Fetching latest release from ' + releaseUrl);
 
         request({
-            url: url,
+            url: releaseUrl,
             json: true
         }, function(error, response, body) {
             if (!error && response.statusCode === 200) {
