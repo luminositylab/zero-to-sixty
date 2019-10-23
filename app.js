@@ -38,8 +38,9 @@ webhookHandler.on('check_suite', function(repo, data) {
             json: true
         }, function(error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log(body)
-                console.log('Updated to sha: ' + data['check_suite']['head_sha']);
+                console.log('Updated to sha: ' + body['target_commitish']);
+                console.log('Version ' + body['tag_name']);
+                console.log(body['assets']);
             }
         });
         // process.kill(process.pid, 'SIGTERM')
