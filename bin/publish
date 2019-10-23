@@ -32,7 +32,7 @@ response=$(curl \
     --data "{
         \"tag_name\": \"v$SYM_VERSION\",
         \"target_commitish\": \"$GITHUB_SHA\",
-        \"name\": \"$GITHUB_SHA\",
+        \"name\": \"Autorelease for v$SYM_VERSION\",
         \"body\": \"Auto release for $GITHUB_SHA\",
         \"draft\": false,
         \"prerelease\": false
