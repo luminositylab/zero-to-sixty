@@ -26,7 +26,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app
-        path: zero-to-sixty-1.0.0.tgz
+        path: zero-to-sixty-*
     - name: Upload artifacts
       run: bin/publish
       env:
