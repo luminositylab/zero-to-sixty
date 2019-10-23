@@ -22,13 +22,13 @@ jobs:
         CI: true
     - name: pack
       run: |
-        export PACK_NAME=$(npm pack)
-        echo ::set-env name=PACK_NAME::$(npm pack)
+        npm pack
+        mv zero-to-sixty-* zero-to-sixty.tgz
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
         name: app
-        path: ${{ PACK_NAME }}
+        path: zero-to-sixty.tgz
     - name: Publish artifact
       run: bin/publish
       env:
