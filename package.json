@@ -1,6 +1,6 @@
 {
   "name": "zero-to-sixty",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Simple Self Deploying App",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
