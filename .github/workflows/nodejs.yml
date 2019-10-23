@@ -27,3 +27,9 @@ jobs:
       with:
         name: app
         path: zero-to-sixty-1.0.0.tgz
+    - name: Upload artifacts
+      uses: skx/github-action-publish-binaries@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: 'zero-to-sixty-*'
