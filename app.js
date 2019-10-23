@@ -20,7 +20,7 @@ app.use(webhookHandler);
 
 //Setup Github Webhook Handler
 webhookHandler.on('*', function(event, repo, data) {
-    console.log(event, repo, data);
+    console.log(event, data);
 });
 
 // view engine setup
