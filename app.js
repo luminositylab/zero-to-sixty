@@ -20,7 +20,14 @@ app.use(webhookHandler);
 
 //Setup Github Webhook Handler
 webhookHandler.on('check_suite', function(repo, data) {
-    console.log('check_suite', data['action'], data['check_suite']['status'], data['check_suite']['conclusion']);
+    var action = data['action'];
+    var status = data['check_suite']['status'];
+    var conclusion = data['check_suite']['conclusion'];
+
+    console.log('check_suite', action, status, conclusion);
+    if (action === 'completed' && status === 'completed' && conclusion === 'success') {
+        console.log('Updated to sha: ' + data['check_suite']['head_sha']);
+    }
 });
 
 app.set('views', path.join(__dirname, 'views'));
